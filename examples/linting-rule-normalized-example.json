@@ -1,0 +1,24 @@
+{
+  "$schema": "https://api-evangelist.github.io/linting/json-schema/linting-rule-schema.json",
+  "id": "operation-operationId-unique",
+  "description": "Every operation must have a unique operationId.",
+  "message": "Operation IDs must be globally unique across the document. Duplicate operationId at {{path}}.",
+  "severity": "error",
+  "given": ["$"],
+  "then": [
+    {
+      "function": "oasOpIdUnique"
+    }
+  ],
+  "target": "operations",
+  "formats": ["oas2", "oas3_0", "oas3_1"],
+  "recommended": true,
+  "tags": [
+    "API Linting",
+    "Naming",
+    "OpenAPI"
+  ],
+  "sourceTool": "spectral",
+  "sourceUrl": "https://github.com/stoplightio/spectral/blob/develop/packages/rulesets/src/oas/index.ts",
+  "documentationUrl": "https://docs.stoplight.io/docs/spectral/4dec24461f3af-open-api-rules#operation-operationid-unique"
+}

@@ -1,0 +1,97 @@
+# Example Vacuum ruleset — illustrates Vacuum's Spectral-compatible YAML
+# grammar plus OWASP-aligned rules from the built-in owasp ruleset.
+#
+# Source: https://github.com/daveshanley/vacuum/tree/main/rulesets
+# License: MIT
+#
+# Run: `vacuum lint -r vacuum-owasp-ruleset-example.yaml openapi.yaml`
+
+extends:
+  - "spectral:oas"
+
+documentationUrl: https://quobix.com/vacuum/rulesets/
+
+rules:
+
+  # --- OWASP API Security Top 10 alignment ---
+
+  owasp-no-numeric-ids:
+    description: Use random IDs that cannot be guessed. UUIDs are preferred.
+    message: "Schema `{{property}}` uses a numeric ID without a `format` of `uuid`."
+    severity: error
+    given: >-
+      $.paths..parameters[?(@.name=="id" || @.name=="ID")].schema
+    then:
+      - field: type
+        function: pattern
+        functionOptions:
+          notMatch: "^(integer|number)$"
+      - field: format
+        function: pattern
+        functionOptions:
+          match: "^uuid$"
+    formats: [oas3]
+
+  owasp-no-http-basic:
+    description: HTTP Basic credentials transmit secrets reversibly with every request.
+    message: "Security scheme uses HTTP Basic; switch to OAuth2 / OpenID Connect."
+    severity: error
+    given: $.components.securitySchemes[*]
+    then:
+      field: scheme
+      function: pattern
+      functionOptions:
+        notMatch: "^basic$"
+    formats: [oas3]
+
+  owasp-define-error-responses-401:
+    description: OWASP API2:2023 — Authentication endpoints must define 401 responses.
+    message: "Operation is missing `401` response."
+    severity: warn
+    given: $.paths..responses
+    then:
+      field: "401"
+      function: truthy
+    formats: [oas3]
+
+  owasp-rate-limiting-headers:
+    description: Document standard rate-limit headers so clients can self-throttle.
+    message: "Successful response should include rate-limit headers."
+    severity: info
+    given: $.paths..responses[200].headers
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          required:
+            - "X-RateLimit-Limit"
+            - "X-RateLimit-Remaining"
+    formats: [oas3]
+
+  # --- Documentation completeness ---
+
+  vacuum-operation-description:
+    description: Every operation should have a non-empty description.
+    message: "Operation `{{path}}` is missing a description."
+    severity: warn
+    given: "#Operation"
+    then:
+      field: description
+      function: truthy
+    formats: [oas3, oas3_1]
+
+  vacuum-operation-4xx-response:
+    description: Every operation should declare at least one 4xx response.
+    message: "Operation `{{path}}` is missing a 4xx response."
+    severity: warn
+    given: $.paths..responses
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            "^4[0-9][0-9]$": {}
+          minProperties: 1
+    formats: [oas3]

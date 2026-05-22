@@ -1,0 +1,221 @@
+vocabulary:
+  name: API Linting Vocabulary
+  description: >-
+    Working vocabulary for API linting concepts that recur across Spectral,
+    Vacuum, Redocly CLI, Optic, sweater-comb, Speakeasy, Postman API
+    Governance, and Apicurio. The terms here normalize the language so a
+    rule expressed in one tool can be reasoned about, translated, or
+    re-emitted in another.
+  created: '2026-05-22'
+  modified: '2026-05-22'
+
+  terms:
+    - term: Linter
+      definition: >-
+        A tool that evaluates a set of rules against an API artifact —
+        usually an OpenAPI or AsyncAPI document — and reports violations
+        with associated severity, location, and (optionally) a fix.
+      related:
+        - Ruleset
+        - Rule
+        - Violation
+
+    - term: Ruleset
+      definition: >-
+        A configuration file (YAML, JSON, or TypeScript module) that
+        bundles a set of linting rules, the rulesets it extends, any
+        overrides, and the formats it scopes to. Spectral, Vacuum, and
+        Redocly use file formats with extensive overlap but non-identical
+        semantics.
+      related:
+        - Rule
+        - Profile
+        - Extends
+        - Overrides
+
+    - term: Rule
+      definition: >-
+        A single linting check composed of an identifier, a selector
+        (`given`), one or more assertions (`then`), a severity, and a
+        human-readable message. The unit every linter ultimately
+        evaluates.
+      related:
+        - Given
+        - Then
+        - Severity
+        - Function
+
+    - term: Given
+      definition: >-
+        The selector portion of a rule. Spectral and Vacuum use JSONPath
+        Plus expressions; Redocly uses a `where` clause keyed to object
+        types; Optic uses a typed FactsContext. Conceptually, all four
+        answer the same question — "which nodes does this rule run on?"
+      related:
+        - Rule
+        - JSONPath
+        - Then
+
+    - term: Then
+      definition: >-
+        The assertion portion of a rule. Specifies a function to invoke
+        on the matched node (`truthy`, `pattern`, `casing`, `schema`,
+        etc.) plus the options the function needs to evaluate.
+      related:
+        - Rule
+        - Function
+        - Given
+
+    - term: Severity
+      definition: >-
+        The importance of a violation. Most linters use the
+        Spectral-style four-tier scale plus an `off` value — error(0),
+        warn(1), info(2), hint(3), off — so a single rule grammar can
+        be tuned per project without forking the ruleset.
+      related:
+        - Rule
+        - Violation
+
+    - term: Function
+      definition: >-
+        A reusable assertion implementation invoked by a rule's `then`
+        clause. Spectral's core functions — `truthy`, `falsy`, `defined`,
+        `undefined`, `pattern`, `enumeration`, `length`, `alphabetical`,
+        `casing`, `xor`, and `schema` — are the lingua franca; Vacuum
+        reimplements them in Go, Redocly maps them to assertions, and
+        Optic re-implements them in TypeScript with type-safe contexts.
+      related:
+        - Then
+        - Rule
+
+    - term: Profile
+      definition: >-
+        A preset severity slice of a built-in ruleset, used to ship
+        opinionated defaults. Redocly defines `minimal`, `recommended`,
+        `recommended-strict`, and `spec`; Spectral marks rules as
+        `recommended: true|false`; Speakeasy maintains the always-on
+        `speakeasy-generation` profile.
+      related:
+        - Ruleset
+        - Severity
+
+    - term: Extends
+      definition: >-
+        A ruleset directive that imports rules from another ruleset by
+        URL, npm package name, or built-in identifier (e.g.
+        `spectral:oas`). Enables inheritance, layered standards, and
+        organizational style guides.
+      related:
+        - Ruleset
+        - Overrides
+
+    - term: Overrides
+      definition: >-
+        A ruleset directive that selectively changes severity, disables
+        rules, or scopes rules to specific file paths. The mechanism
+        that lets organizations adopt a community ruleset wholesale
+        and then locally tune it without forking.
+      related:
+        - Ruleset
+        - Extends
+        - Severity
+
+    - term: Alias
+      definition: >-
+        A named JSONPath expression defined once at the ruleset level
+        and referenced by multiple rules. Spectral and Vacuum both
+        support aliases as a DRY mechanism across rules that target
+        the same shape.
+      related:
+        - Ruleset
+        - JSONPath
+
+    - term: JSONPath
+      definition: >-
+        The query language used by Spectral and Vacuum to address nodes
+        inside a JSON/YAML document. Both tools use the JSONPath Plus
+        dialect, which extends RFC-track JSONPath with `^` (parent),
+        `~` (key), and recursive `..` patterns.
+      related:
+        - Given
+        - Rule
+
+    - term: Violation
+      definition: >-
+        A specific occurrence of a rule failing on a document, carrying
+        a path, a severity, a message, and (sometimes) a code-frame
+        excerpt. The output unit every linter emits.
+      related:
+        - Rule
+        - Severity
+
+    - term: Style Guide
+      definition: >-
+        An organization's API design standards encoded as a ruleset.
+        Style guides are the product of the linting practice — Zalando,
+        Adidas, Snyk (sweater-comb), and DigitalOcean have all published
+        their internal style guides as portable rulesets.
+      related:
+        - Ruleset
+        - Profile
+
+    - term: Breaking Change Rule
+      definition: >-
+        A rule that fires only on a diff between two versions of an API
+        artifact rather than on a single document. Optic and Redocly's
+        `lint diff` model breaking-change detection as a specialized
+        family of linting.
+      related:
+        - Rule
+        - Diff
+
+    - term: Configurable Rule
+      definition: >-
+        A Redocly concept: a rule whose behavior is fully parameterized
+        by configuration (a `subject` + `assertions`) and requires no
+        custom code. Closest analog to Spectral's pure-functional rules.
+      related:
+        - Rule
+        - Function
+
+    - term: Custom Plugin
+      definition: >-
+        Tool-specific extension that adds new rule types implemented in
+        code. Spectral and Redocly both ship plugin systems (JS/TS),
+        Vacuum ships a Go SDK, and Optic ships a TypeScript SDK.
+      related:
+        - Ruleset
+        - Function
+
+    - term: Content Rule
+      definition: >-
+        Apicurio Registry's term for an artifact-validation policy
+        applied on upload — `VALIDITY`, `COMPATIBILITY`, `INTEGRITY` —
+        which enforces format correctness and version compatibility
+        before an artifact is accepted into the registry.
+      related:
+        - Ruleset
+        - Violation
+
+    - term: Runtime Validation
+      definition: >-
+        Enforcement of schema or contract conformance against live API
+        traffic, as opposed to static design-time linting. APIMetrics
+        and the Apicurio SerDes libraries are canonical examples.
+      related:
+        - Rule
+        - Violation
+
+  tags:
+    - API Design
+    - API Governance
+    - API Linting
+    - API Style Guide
+    - AsyncAPI
+    - Breaking Changes
+    - JSON Schema
+    - JSONPath
+    - OpenAPI
+    - Quality Assurance
+    - Ruleset
+    - Spectral

@@ -1,0 +1,102 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "lint": "https://api-evangelist.github.io/linting/vocab/",
+    "spectral": "https://stoplight.io/spectral/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Ruleset": {
+      "@id": "lint:Ruleset",
+      "@type": "@id",
+      "schema:description": "A named collection of linting rules applied together against an API artifact."
+    },
+    "Rule": {
+      "@id": "lint:Rule",
+      "@type": "@id",
+      "schema:description": "An individual linting check with a selector, an assertion, and a severity."
+    },
+    "Profile": {
+      "@id": "lint:Profile",
+      "@type": "@id",
+      "schema:description": "A preset severity slice of a ruleset (e.g. recommended, recommended-strict, minimal, spec)."
+    },
+    "Function": {
+      "@id": "lint:Function",
+      "@type": "@id",
+      "schema:description": "A built-in or custom assertion function invoked by a rule's `then` clause."
+    },
+    "Severity": {
+      "@id": "lint:Severity",
+      "@type": "@vocab",
+      "schema:description": "The reported importance of a rule violation: error, warn, info, hint, or off."
+    },
+    "Violation": {
+      "@id": "lint:Violation",
+      "@type": "@id",
+      "schema:description": "A specific occurrence where a Rule failed against an input document."
+    },
+    "Linter": {
+      "@id": "lint:Linter",
+      "@type": "@id",
+      "schema:description": "A tool that evaluates rules against an API artifact (Spectral, Vacuum, Redocly CLI, Optic, Speakeasy, Postman, Apicurio, sweater-comb, APIMetrics)."
+    },
+
+    "given": {
+      "@id": "lint:given",
+      "@type": "xsd:string",
+      "@container": "@set"
+    },
+    "then": {
+      "@id": "lint:then"
+    },
+    "message": {
+      "@id": "lint:message",
+      "@type": "xsd:string"
+    },
+    "severity": {
+      "@id": "lint:severity",
+      "@type": "@vocab"
+    },
+    "functionName": {
+      "@id": "lint:functionName",
+      "@type": "xsd:string"
+    },
+    "functionOptions": {
+      "@id": "lint:functionOptions",
+      "@type": "@json"
+    },
+    "formats": {
+      "@id": "lint:formats",
+      "@type": "@vocab",
+      "@container": "@set"
+    },
+    "recommended": {
+      "@id": "lint:recommended",
+      "@type": "xsd:boolean"
+    },
+    "sourceTool": {
+      "@id": "lint:sourceTool",
+      "@type": "@vocab"
+    },
+    "extends": {
+      "@id": "lint:extends",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "overrides": {
+      "@id": "lint:overrides"
+    },
+
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "version": "schema:version",
+    "license": "schema:license",
+    "dateCreated": "schema:dateCreated",
+    "dateModified": "schema:dateModified",
+    "SoftwareApplication": "schema:SoftwareApplication",
+    "SoftwareSourceCode": "schema:SoftwareSourceCode",
+    "programmingLanguage": "schema:programmingLanguage"
+  }
+}

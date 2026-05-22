@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/linting/json-schema/linting-rule-schema.json",
+  "title": "Linting Rule",
+  "description": "A normalized representation of a single linting rule that can be sourced from Spectral, Vacuum, Redocly CLI, Optic, sweater-comb, Speakeasy, or Postman API Governance. Optimized for cross-tool ruleset analysis, indexing, and re-emission.",
+  "type": "object",
+  "required": ["id", "severity", "given", "then", "sourceTool"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier for the rule, e.g. `operation-operationId-unique`.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of what the rule enforces."
+    },
+    "message": {
+      "type": "string",
+      "description": "Message emitted when the rule is violated. Spectral supports `{{error}}`, `{{path}}`, `{{value}}` placeholders; Redocly and Vacuum follow similar conventions."
+    },
+    "severity": {
+      "description": "Importance of a violation. Numeric form matches Spectral: error(0), warn(1), info(2), hint(3). `off` disables a rule inherited from an extended ruleset.",
+      "oneOf": [
+        { "type": "string", "enum": ["error", "warn", "info", "hint", "off"] },
+        { "type": "integer", "minimum": 0, "maximum": 3 }
+      ]
+    },
+    "given": {
+      "description": "One or more JSONPath++ (Spectral/Vacuum), where-selector (Redocly), or Optic FactsContext expressions that select the nodes the rule applies to.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      ]
+    },
+    "then": {
+      "description": "The assertion(s) to evaluate against each node matched by `given`.",
+      "oneOf": [
+        { "$ref": "#/$defs/Then" },
+        { "type": "array", "items": { "$ref": "#/$defs/Then" }, "minItems": 1 }
+      ]
+    },
+    "target": {
+      "type": "string",
+      "description": "Optional explicit target name (`info`, `paths`, `operations`, `schemas`, etc.) for tools that key rules to artifact regions rather than JSONPath.",
+      "enum": [
+        "info",
+        "paths",
+        "operations",
+        "parameters",
+        "requestBodies",
+        "responses",
+        "schemas",
+        "headers",
+        "securitySchemes",
+        "servers",
+        "tags",
+        "channels",
+        "messages",
+        "components",
+        "document"
+      ]
+    },
+    "when": {
+      "type": "object",
+      "description": "Optional gating condition (Redocly `where`/`subject.matches`, Spectral `given` qualifier). When present, the rule only fires for nodes that satisfy the condition.",
+      "properties": {
+        "subject": { "type": "string" },
+        "matches": { "type": "string" },
+        "property": { "type": "string" },
+        "value": {}
+      },
+      "additionalProperties": true
+    },
+    "formats": {
+      "type": "array",
+      "description": "Spec formats the rule is scoped to. Tools differ on identifiers; this schema accepts the union.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "oas2",
+          "oas3",
+          "oas3_0",
+          "oas3_1",
+          "asyncapi2",
+          "asyncapi3",
+          "arazzo1",
+          "json-schema-draft-04",
+          "json-schema-draft-06",
+          "json-schema-draft-07",
+          "json-schema-2019-09",
+          "json-schema-2020-12",
+          "open-rpc"
+        ]
+      }
+    },
+    "recommended": {
+      "type": "boolean",
+      "description": "Whether the rule is included in the tool's `recommended` profile."
+    },
+    "tags": {
+      "type": "array",
+      "description": "Free-form classification tags (e.g. `Security`, `Naming`, `Documentation`, `OWASP`).",
+      "items": { "type": "string" }
+    },
+    "sourceTool": {
+      "type": "string",
+      "description": "The linting tool the rule originated in.",
+      "enum": [
+        "spectral",
+        "vacuum",
+        "redocly-cli",
+        "optic",
+        "sweater-comb",
+        "speakeasy",
+        "postman",
+        "apicurio",
+        "apimetrics",
+        "custom"
+      ]
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Link to the canonical definition of the rule (ruleset file, docs page, or registry entry)."
+    },
+    "documentationUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "Link to human-readable documentation for the rule."
+    }
+  },
+  "$defs": {
+    "Then": {
+      "type": "object",
+      "required": ["function"],
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Optional sub-field of the matched node to apply the function to."
+        },
+        "function": {
+          "type": "string",
+          "description": "Name of the built-in or custom function evaluating the assertion.",
+          "examples": [
+            "truthy",
+            "falsy",
+            "defined",
+            "undefined",
+            "pattern",
+            "enumeration",
+            "length",
+            "alphabetical",
+            "casing",
+            "xor",
+            "schema",
+            "unreferencedReusableObject",
+            "typedEnum"
+          ]
+        },
+        "functionOptions": {
+          "type": "object",
+          "description": "Options passed to the function (e.g. `match`/`notMatch` for `pattern`, `type` for `casing`, `min`/`max` for `length`).",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

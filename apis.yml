@@ -1,0 +1,481 @@
+aid: linting
+name: API Linting
+description: >-
+  API Linting is a topic index for the tools, rulesets, vocabularies, and
+  practices that automate API style guide enforcement across OpenAPI,
+  AsyncAPI, JSON Schema, and adjacent contract formats. The collection
+  catalogs the major open-source and commercial linters in use across the
+  industry — Spectral, Vacuum, Redocly CLI, Optic, Apicurio, sweater-comb,
+  Speakeasy, and Postman API governance — alongside shared schemas, JSON-LD
+  context, and a working vocabulary so linting concepts can be reasoned
+  about consistently across tools.
+type: Index
+image: https://kinlane-productions2.s3.amazonaws.com/api-evangelist-logos/api-evangelist-logo-butterfly.png
+tags:
+  - API Design
+  - API Governance
+  - API Linting
+  - API Style Guide
+  - AsyncAPI
+  - JSON Schema
+  - Linting
+  - OpenAPI
+  - Quality Assurance
+  - Topic
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/apis.yml
+created: '2026-05-22'
+modified: '2026-05-22'
+specificationVersion: '0.19'
+apis:
+  - aid: linting:spectral
+    name: Spectral
+    description: >-
+      Stoplight's flexible JSON/YAML linter for creating automated style
+      guides, with baked-in support for OpenAPI v3.1, v3.0, v2.0, Arazzo
+      v1.0, and AsyncAPI v2.x. Spectral is the de facto reference linter
+      for API style guides — every other tool in this index either extends
+      its rule grammar or competes with it directly.
+    humanURL: https://stoplight.io/open-source/spectral
+    baseURL: https://github.com/stoplightio/spectral
+    tags:
+      - API Linting
+      - API Style Guide
+      - AsyncAPI
+      - JSONPath
+      - OpenAPI
+      - Stoplight
+    properties:
+      - type: Documentation
+        url: https://docs.stoplight.io/docs/spectral
+      - type: GettingStarted
+        url: https://docs.stoplight.io/docs/spectral/674b27b261c3c-overview
+      - type: GitHubRepository
+        url: https://github.com/stoplightio/spectral
+      - type: NPMPackage
+        url: https://www.npmjs.com/package/@stoplight/spectral-cli
+      - type: VSCodeExtension
+        url: https://marketplace.visualstudio.com/items?itemName=stoplight.spectral
+      - type: ChangeLog
+        url: https://github.com/stoplightio/spectral/blob/main/CHANGELOG.md
+      - type: License
+        url: https://github.com/stoplightio/spectral/blob/main/LICENSE
+        x-license: Apache-2.0
+      - type: RulesetReference
+        url: https://docs.stoplight.io/docs/spectral/e5b9616d6d50c-rulesets
+      - type: BuiltInFunctions
+        url: https://docs.stoplight.io/docs/spectral/cb95cf0d26b83-core-functions
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/spectral
+    x-rules-format: spectral-yaml
+    x-rules-engine: javascript
+    x-integration-points:
+      - cli
+      - ci
+      - vscode
+      - sdk-node
+    x-supported-formats:
+      - openapi-2.0
+      - openapi-3.0
+      - openapi-3.1
+      - asyncapi-2.x
+      - arazzo-1.0
+      - generic-json-yaml
+
+  - aid: linting:vacuum
+    name: Vacuum
+    description: >-
+      A Go-based, ultra-fast OpenAPI linter inspired by Spectral and fully
+      compatible with existing Spectral rulesets. Vacuum tears through API
+      specs at light speed, ships interactive HTML reports and a dashboard
+      TUI, and embeds as a Go SDK for native CI tooling.
+    humanURL: https://quobix.com/vacuum/
+    baseURL: https://github.com/daveshanley/vacuum
+    tags:
+      - API Linting
+      - Go
+      - OpenAPI
+      - Performance
+      - Spectral Compatible
+    properties:
+      - type: Documentation
+        url: https://quobix.com/vacuum/start/
+      - type: GitHubRepository
+        url: https://github.com/daveshanley/vacuum
+      - type: Releases
+        url: https://github.com/daveshanley/vacuum/releases
+      - type: License
+        url: https://github.com/daveshanley/vacuum/blob/main/LICENSE
+        x-license: MIT
+      - type: Rulesets
+        url: https://quobix.com/vacuum/rulesets/
+      - type: HTMLReport
+        url: https://quobix.com/vacuum/commands/html-report/
+      - type: Dashboard
+        url: https://quobix.com/vacuum/commands/dashboard/
+      - type: GitHubAction
+        url: https://github.com/marketplace/actions/vacuum-openapi-linter
+      - type: VSCodeExtension
+        url: https://marketplace.visualstudio.com/items?itemName=quobix.vacuum
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/vacuum
+    x-rules-format: spectral-yaml
+    x-rules-engine: go
+    x-integration-points:
+      - cli
+      - ci
+      - vscode
+      - dashboard
+      - sdk-go
+    x-supported-formats:
+      - openapi-2.0
+      - openapi-3.0
+      - openapi-3.1
+
+  - aid: linting:redocly-cli
+    name: Redocly CLI
+    description: >-
+      Redocly's `lint` command identifies and reports problems in OpenAPI,
+      AsyncAPI, Arazzo, or Open-RPC descriptions, helping teams "avoid bugs
+      and make API or Arazzo descriptions more consistent." Rules and
+      assertions are configured through `redocly.yaml` with four preset
+      severity profiles — minimal, recommended, recommended-strict, and
+      spec.
+    humanURL: https://redocly.com/docs/cli/
+    baseURL: https://github.com/Redocly/redocly-cli
+    tags:
+      - API Linting
+      - Arazzo
+      - AsyncAPI
+      - Open-RPC
+      - OpenAPI
+      - Redocly
+    properties:
+      - type: Documentation
+        url: https://redocly.com/docs/cli/commands/lint/
+      - type: BuiltInRules
+        url: https://redocly.com/docs/cli/rules/built-in-rules/
+      - type: ConfigurableRules
+        url: https://redocly.com/docs/cli/rules/configurable-rules/
+      - type: CustomPlugins
+        url: https://redocly.com/docs/cli/custom-plugins/
+      - type: GitHubRepository
+        url: https://github.com/Redocly/redocly-cli
+      - type: NPMPackage
+        url: https://www.npmjs.com/package/@redocly/cli
+      - type: License
+        url: https://github.com/Redocly/redocly-cli/blob/main/LICENSE
+        x-license: MIT
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/redocly
+    x-rules-format: redocly-yaml
+    x-rules-engine: typescript
+    x-integration-points:
+      - cli
+      - ci
+      - github-actions
+    x-supported-formats:
+      - openapi-2.0
+      - openapi-3.0
+      - openapi-3.1
+      - asyncapi-2.x
+      - asyncapi-3.0
+      - arazzo-1.0
+      - open-rpc
+
+  - aid: linting:optic
+    name: Optic
+    description: >-
+      Optic catches breaking changes and applies lint rules to OpenAPI
+      specs, generating OpenAPI from real traffic and keeping it accurate
+      with automatic schema testing and patches. The project was archived
+      in January 2026 after Optic Labs was acquired by Atlassian, but the
+      ruleset model remains in active use via sweater-comb and forks.
+    humanURL: https://www.useoptic.com/
+    baseURL: https://github.com/opticdev/optic
+    tags:
+      - API Diff
+      - API Linting
+      - Breaking Changes
+      - OpenAPI
+      - TypeScript
+    properties:
+      - type: Documentation
+        url: https://www.useoptic.com/docs
+      - type: GitHubRepository
+        url: https://github.com/opticdev/optic
+      - type: NPMPackage
+        url: https://www.npmjs.com/package/@useoptic/optic
+      - type: License
+        url: https://github.com/opticdev/optic/blob/main/LICENSE
+        x-license: MIT
+      - type: Releases
+        url: https://github.com/opticdev/optic/releases
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/optic
+    x-rules-format: optic-typescript
+    x-rules-engine: typescript
+    x-integration-points:
+      - cli
+      - ci
+      - sdk-node
+    x-supported-formats:
+      - openapi-3.0
+      - openapi-3.1
+    x-status: archived-2026-01-12
+
+  - aid: linting:apicurio-registry
+    name: Apicurio Registry
+    description: >-
+      Red Hat's open-source API/schema registry that stores and validates
+      OpenAPI, AsyncAPI, JSON Schema, Avro, Protobuf, and GraphQL
+      artifacts. While not a pure linter, Apicurio Registry performs
+      content-rule validation on artifact upload and is the canonical
+      governance point in many Kafka and event-driven architectures.
+    humanURL: https://www.apicur.io/registry/
+    baseURL: https://github.com/Apicurio/apicurio-registry
+    tags:
+      - Apicurio
+      - AsyncAPI
+      - Avro
+      - JSON Schema
+      - Kafka
+      - OpenAPI
+      - Protobuf
+      - Red Hat
+      - Schema Registry
+    properties:
+      - type: Documentation
+        url: https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html
+      - type: GitHubRepository
+        url: https://github.com/Apicurio/apicurio-registry
+      - type: License
+        url: https://github.com/Apicurio/apicurio-registry/blob/main/LICENSE
+        x-license: Apache-2.0
+      - type: ContentRules
+        url: https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/getting-started/assembly-managing-registry-artifacts.html
+    x-rules-format: apicurio-content-rules
+    x-rules-engine: java
+    x-integration-points:
+      - rest-api
+      - ui
+      - ci
+      - kafka-serdes
+    x-supported-formats:
+      - openapi
+      - asyncapi
+      - avro
+      - json-schema
+      - protobuf
+      - graphql
+
+  - aid: linting:sweater-comb
+    name: Sweater Comb
+    description: >-
+      Snyk's TypeScript ruleset built on Optic CI that enforces consistency
+      standards across OpenAPI specifications. Sweater Comb codifies the
+      Snyk API Program's design rules so a growing federation of teams
+      ship "cohesive, consistent and unsurprising" APIs without manual
+      review.
+    humanURL: https://github.com/snyk/sweater-comb
+    baseURL: https://github.com/snyk/sweater-comb
+    tags:
+      - API Governance
+      - OpenAPI
+      - Optic
+      - Ruleset
+      - Snyk
+      - TypeScript
+    properties:
+      - type: GitHubRepository
+        url: https://github.com/snyk/sweater-comb
+      - type: NPMPackage
+        url: https://www.npmjs.com/package/@snyk/sweater-comb
+      - type: License
+        url: https://github.com/snyk/sweater-comb/blob/main/LICENSE
+        x-license: Apache-2.0
+      - type: APIStandards
+        url: https://github.com/snyk/sweater-comb/blob/main/docs/standards.md
+    x-rules-format: optic-typescript
+    x-rules-engine: typescript
+    x-integration-points:
+      - cli
+      - ci
+    x-supported-formats:
+      - openapi-3.0
+      - openapi-3.1
+
+  - aid: linting:speakeasy
+    name: Speakeasy Linter
+    description: >-
+      Speakeasy's OpenAPI validator with 90+ built-in rules across six
+      categories — SDK generation, spec correctness, best practices,
+      security, schema validation, and Speakeasy-specific checks. The
+      `speakeasy-generation` ruleset is always applied to guarantee
+      compatibility with the code generator and cannot be overridden.
+    humanURL: https://www.speakeasy.com/docs/prep-openapi/linting
+    baseURL: https://github.com/speakeasy-api/speakeasy
+    tags:
+      - API Linting
+      - OpenAPI
+      - SDK Generation
+      - Speakeasy
+    properties:
+      - type: Documentation
+        url: https://www.speakeasy.com/docs/prep-openapi/linting
+      - type: GitHubRepository
+        url: https://github.com/speakeasy-api/speakeasy
+      - type: License
+        url: https://github.com/speakeasy-api/speakeasy/blob/main/LICENSE.md
+        x-license: MIT
+      - type: CustomRuleTypes
+        url: https://www.npmjs.com/package/@speakeasy-api/openapi-linter-types
+    x-rules-format: speakeasy-yaml
+    x-rules-engine: go
+    x-integration-points:
+      - cli
+      - ci
+      - sdk-typescript
+    x-supported-formats:
+      - openapi-3.0
+      - openapi-3.1
+
+  - aid: linting:postman-api-governance
+    name: Postman API Governance
+    description: >-
+      Postman Spec Hub's governance engine applies linting rules to
+      OpenAPI 2.0, 3.0, and 3.1 specifications, surfacing violations
+      directly in the Issues tab below the spec editor. Enterprise teams
+      can customize the rules Postman applies and enforce them across
+      CI/CD pipelines via the Postman CLI.
+    humanURL: https://learning.postman.com/docs/api-governance/api-definition/api-definition-warnings/
+    baseURL: https://www.postman.com/
+    tags:
+      - API Governance
+      - API Linting
+      - OpenAPI
+      - Postman
+      - Spec Hub
+    properties:
+      - type: Documentation
+        url: https://learning.postman.com/docs/api-governance/api-definition/api-definition-warnings/
+      - type: ConfigurableRules
+        url: https://learning.postman.com/docs/api-governance/configurable-rules/configuring-api-governance-rules/
+      - type: PostmanCLI
+        url: https://learning.postman.com/docs/postman-cli/postman-cli-overview/
+      - type: Pricing
+        url: https://www.postman.com/pricing/
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/postman
+    x-rules-format: postman-governance
+    x-rules-engine: proprietary
+    x-integration-points:
+      - web-ui
+      - ci
+      - postman-cli
+    x-supported-formats:
+      - openapi-2.0
+      - openapi-3.0
+      - openapi-3.1
+
+  - aid: linting:stoplight-studio
+    name: Stoplight Studio
+    description: >-
+      Stoplight's API design IDE embeds Spectral natively, surfacing
+      ruleset violations as real-time editor feedback as designers
+      author OpenAPI and JSON Schema. Studio is the canonical
+      reference for IDE-grade linting feedback in the API design
+      surface.
+    humanURL: https://stoplight.io/api-design
+    baseURL: https://stoplight.io/
+    tags:
+      - API Design
+      - API Linting
+      - IDE
+      - Spectral
+      - Stoplight
+    properties:
+      - type: Documentation
+        url: https://docs.stoplight.io/docs/studio/b3A6Mzc1MDU3NA-overview
+      - type: SpectralIntegration
+        url: https://docs.stoplight.io/docs/studio/b3A6MTI0NjYzNTM-style-guides-and-linting
+      - type: APIEvangelistRepository
+        url: https://github.com/api-evangelist/stoplight
+    x-rules-format: spectral-yaml
+    x-rules-engine: javascript
+    x-integration-points:
+      - desktop-ide
+      - web-ide
+      - git
+    x-supported-formats:
+      - openapi-2.0
+      - openapi-3.0
+      - openapi-3.1
+      - json-schema
+
+  - aid: linting:apimetrics
+    name: APIMetrics
+    description: >-
+      APIMetrics provides live-traffic API monitoring with a rule engine
+      that evaluates JSON Schema and response-shape compliance on every
+      production call. Unlike static linters, APIMetrics enforces
+      contract conformance at runtime as a complement to design-time
+      Spectral/Vacuum/Redocly checks.
+    humanURL: https://apimetrics.io/
+    baseURL: https://apimetrics.io/
+    tags:
+      - API Monitoring
+      - APIMetrics
+      - JSON Schema
+      - Runtime Validation
+    properties:
+      - type: Documentation
+        url: https://apimetrics.io/docs/
+      - type: GitHubRepository
+        url: https://github.com/APImetrics
+    x-rules-format: apimetrics-yaml
+    x-rules-engine: proprietary
+    x-integration-points:
+      - saas
+      - api
+    x-supported-formats:
+      - json-schema
+      - openapi-3.0
+      - openapi-3.1
+
+common:
+  - type: Repository
+    url: https://github.com/api-evangelist/linting
+  - type: GitHubOrganization
+    url: https://github.com/api-evangelist
+  - type: Network
+    url: https://github.com/api-evangelist/api-evangelist-network
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/json-schema/linting-rule-schema.json
+  - type: JSONStructure
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/json-structure/linting-rule-structure.json
+  - type: JSONLDContext
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/json-ld/linting-context.jsonld
+  - type: Vocabulary
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/vocabulary/linting-vocabulary.yml
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/spotlight-rules
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/spectral
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/vacuum
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/redocly
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/optic
+  - type: RelatedRepository
+    url: https://github.com/api-evangelist/stoplight
+
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+    X-github: kinlane

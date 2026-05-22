@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-structure.org/draft/2025-09/schema",
+  "$id": "https://api-evangelist.github.io/linting/json-structure/linting-rule-structure.json",
+  "title": "Linting Rule Structure",
+  "description": "Structural representation of a normalized linting rule that can be sourced from Spectral, Vacuum, Redocly CLI, Optic, sweater-comb, Speakeasy, Postman API Governance, or Apicurio. Companion to linting-rule-schema.json.",
+  "type": "object",
+  "name": "LintingRule",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable rule identifier (e.g. `operation-operationId-unique`)."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable summary of what the rule enforces."
+    },
+    "message": {
+      "type": "string",
+      "description": "Violation message; may contain placeholder tokens like `{{error}}`, `{{path}}`, `{{value}}`."
+    },
+    "severity": {
+      "type": "string",
+      "description": "One of error, warn, info, hint, off (or integer 0-3)."
+    },
+    "given": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Selector expressions (JSONPath++, Redocly where, Optic FactsContext)."
+    },
+    "then": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Assertion" },
+      "description": "One or more assertions evaluated against each matched node."
+    },
+    "target": {
+      "type": "string",
+      "description": "Artifact region (info, paths, operations, schemas, channels, messages, etc.)."
+    },
+    "when": {
+      "type": "object",
+      "description": "Optional gating condition keyed to subject/matches/property/value."
+    },
+    "formats": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Format scope (oas3_0, oas3_1, asyncapi2, asyncapi3, arazzo1, ...)"
+    },
+    "recommended": {
+      "type": "boolean",
+      "description": "Whether the rule belongs to the `recommended` profile."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Classification tags (Security, Naming, Documentation, OWASP, ...)."
+    },
+    "sourceTool": {
+      "type": "string",
+      "description": "Originating linter (spectral, vacuum, redocly-cli, optic, sweater-comb, speakeasy, postman, apicurio, apimetrics)."
+    },
+    "sourceUrl": {
+      "type": "string",
+      "description": "URL pointing at the canonical rule definition."
+    },
+    "documentationUrl": {
+      "type": "string",
+      "description": "URL pointing at human documentation for the rule."
+    }
+  },
+  "definitions": {
+    "Assertion": {
+      "type": "object",
+      "name": "Assertion",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Sub-field of the matched node to apply the function to."
+        },
+        "function": {
+          "type": "string",
+          "description": "Function name (truthy, falsy, defined, undefined, pattern, enumeration, length, alphabetical, casing, xor, schema, ...)."
+        },
+        "functionOptions": {
+          "type": "object",
+          "description": "Function-specific options (e.g. match/notMatch for pattern, type for casing, min/max for length)."
+        }
+      }
+    }
+  },
+  "tags": [
+    "API Linting",
+    "Linting Rule",
+    "OpenAPI",
+    "Ruleset",
+    "Spectral"
+  ]
+}

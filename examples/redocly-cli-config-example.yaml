@@ -1,0 +1,71 @@
+# Example Redocly CLI configuration — illustrates the `redocly.yaml`
+# format: extending a built-in profile, tuning rule severities, and
+# defining configurable rules with subject + assertions.
+#
+# Source: https://redocly.com/docs/cli/rules/
+# License: MIT
+
+extends:
+  - recommended
+
+rules:
+  # --- Severity tuning on built-in rules ---
+
+  operation-operationId-unique: error
+  operation-summary: warn
+  no-ambiguous-paths: error
+  no-server-example.com: warn
+  spec-strict-refs: warn
+
+  # --- Built-in rules with options ---
+
+  tag-description:
+    severity: error
+  paths-kebab-case:
+    severity: warn
+  no-unused-components:
+    severity: warn
+  info-license:
+    severity: warn
+
+  # --- Configurable rules (subject + assertions) ---
+
+  rule/operation-summary-length:
+    subject:
+      type: Operation
+      property: summary
+    assertions:
+      maxLength: 100
+      minLength: 10
+    severity: warn
+
+  rule/path-segments-kebab-case:
+    subject:
+      type: PathItem
+    where:
+      - subject:
+          type: PathItem
+        assertions:
+          defined: true
+    assertions:
+      pattern: "^(/[a-z0-9-]+|/{[A-Za-z0-9_]+})+$"
+    severity: error
+
+  rule/response-content-type-json:
+    subject:
+      type: MediaTypesMap
+    assertions:
+      required:
+        - application/json
+    severity: warn
+
+  rule/security-scheme-must-be-oauth2-or-openidconnect:
+    subject:
+      type: SecurityScheme
+      property: type
+    assertions:
+      enum:
+        - oauth2
+        - openIdConnect
+        - http
+    severity: error

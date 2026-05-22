@@ -1,0 +1,130 @@
+# Example Spectral ruleset for OpenAPI v3 — derived from the public
+# spectral:oas built-in ruleset. Demonstrates: extends, rule structure
+# (given/then/severity/message), built-in functions (truthy, pattern,
+# casing, length, enumeration), and per-rule formats.
+#
+# Source: https://github.com/stoplightio/spectral/tree/develop/packages/rulesets/src/oas
+# License: Apache-2.0
+
+extends:
+  - spectral:oas
+
+formats:
+  - oas3
+  - oas3_0
+  - oas3_1
+
+rules:
+  # --- Documentation ---
+
+  info-contact:
+    description: Info object should contain `contact` object.
+    severity: warn
+    recommended: true
+    given: $
+    then:
+      field: info.contact
+      function: truthy
+    formats: [oas2, oas3]
+
+  info-description:
+    description: OpenAPI object info `description` must be present and non-empty string.
+    severity: warn
+    recommended: true
+    given: $
+    then:
+      field: info.description
+      function: truthy
+    formats: [oas2, oas3]
+
+  # --- Operations ---
+
+  operation-operationId-unique:
+    description: Every operation must have a unique `operationId`.
+    severity: error
+    recommended: true
+    given: $
+    then:
+      function: oasOpIdUnique
+    formats: [oas2, oas3]
+
+  operation-operationId:
+    description: Operation must have `operationId`.
+    severity: warn
+    recommended: true
+    given: "#OperationObject"
+    then:
+      field: operationId
+      function: truthy
+
+  operation-tags:
+    description: Operation should have non-empty `tags` array.
+    severity: warn
+    recommended: true
+    given: "#OperationObject"
+    then:
+      field: tags
+      function: length
+      functionOptions:
+        min: 1
+
+  operation-success-response:
+    description: Operation must have at least one `2xx` or `3xx` response.
+    severity: warn
+    recommended: true
+    given: "#OperationObject.responses"
+    then:
+      function: oasOpSuccessResponse
+
+  # --- Paths ---
+
+  path-params:
+    description: Path parameters must be defined and not duplicated.
+    severity: error
+    recommended: true
+    given: $
+    then:
+      function: oasPathParam
+
+  paths-kebab-case:
+    description: Paths should be kebab-case (lower case and hyphen separated).
+    severity: warn
+    recommended: true
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/|[a-z0-9-.]+|{[a-zA-Z0-9_]+})+$"
+
+  # --- Schemas / naming ---
+
+  schema-names-pascal-case:
+    description: Schema names should be PascalCase.
+    severity: warn
+    recommended: false
+    given: "#OperationObject..schema.properties[*]~"
+    then:
+      function: casing
+      functionOptions:
+        type: pascal
+
+  # --- Tags ---
+
+  openapi-tags-uniqueness:
+    description: Each tag must have a unique `name`.
+    severity: error
+    recommended: true
+    given: $.tags
+    then:
+      function: oasTagsUniqueness
+
+  openapi-tags-alphabetical:
+    description: OpenAPI object `tags` should be in alphabetical order.
+    severity: info
+    recommended: false
+    given: $
+    then:
+      field: tags
+      function: alphabetical
+      functionOptions:
+        keyedBy: name
