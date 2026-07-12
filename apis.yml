@@ -446,6 +446,8 @@ apis:
   - openapi-3.1
 
 common:
+- type: DomainSecurity
+  url: security/linting-domain-security.yml
 - type: Repository
   url: https://github.com/api-evangelist/linting
 - type: GitHubOrganization
