@@ -28,6 +28,17 @@ tags:
 - API Linting
 - API Style Guide
 - AsyncAPI
+- JSON-Schema
+- Linting
+- OpenAPI
+- Quality Assurance
+- Topic
+tags_raw:
+- API Design
+- API Governance
+- API Linting
+- API Style Guide
+- AsyncAPI
 - JSON Schema
 - Linting
 - OpenAPI
@@ -160,6 +171,13 @@ apis:
   - API Linting
   - Arazzo
   - AsyncAPI
+  - OpenRPC
+  - OpenAPI
+  - Redocly
+  tags_raw:
+  - API Linting
+  - Arazzo
+  - AsyncAPI
   - Open-RPC
   - OpenAPI
   - Redocly
@@ -251,6 +269,16 @@ apis:
   - Apicurio
   - AsyncAPI
   - Avro
+  - JSON-Schema
+  - Kafka
+  - OpenAPI
+  - Protobuf
+  - Red Hat
+  - Schema Registry
+  tags_raw:
+  - Apicurio
+  - AsyncAPI
+  - Avro
   - JSON Schema
   - Kafka
   - OpenAPI
@@ -293,6 +321,13 @@ apis:
   humanURL: https://github.com/snyk/sweater-comb
   baseURL: https://github.com/snyk/sweater-comb
   tags:
+  - API Governance
+  - OpenAPI
+  - Optic
+  - Rule Set
+  - Snyk
+  - TypeScript
+  tags_raw:
   - API Governance
   - OpenAPI
   - Optic
@@ -437,6 +472,11 @@ apis:
   humanURL: https://apimetrics.io/
   baseURL: https://apimetrics.io/
   tags:
+  - API Monitoring
+  - API Metrics
+  - JSON-Schema
+  - Runtime Validation
+  tags_raw:
   - API Monitoring
   - APIMetrics
   - JSON Schema
