@@ -183,7 +183,7 @@ apis:
   - API Linting
   - Arazzo
   - AsyncAPI
-  - OpenRPC
+  - Open-RPC
   - OpenAPI
   - Redocly
   tags_raw:
@@ -485,7 +485,7 @@ apis:
   baseURL: https://apimetrics.io/
   tags:
   - API Monitoring
-  - API Metrics
+  - APIMetrics
   - JSON-Schema
   - Runtime Validation
   tags_raw:
