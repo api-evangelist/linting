@@ -1,5 +1,6 @@
 aid: linting
 name: API Linting
+kind: topic
 description: >-
   API Linting is a topic index for the tools, rulesets, vocabularies, and
   practices that automate API style guide enforcement across OpenAPI,
@@ -40,7 +41,7 @@ tags:
 - API Linting
 - API Style Guide
 - AsyncAPI
-- JSON-Schema
+- JSON Schema
 - Linting
 - OpenAPI
 - Quality Assurance
@@ -56,6 +57,7 @@ tags_raw:
 - OpenAPI
 - Quality Assurance
 - Topic
+- JSON-Schema
 url: >-
   https://raw.githubusercontent.com/api-evangelist/linting/refs/heads/main/apis.yml
 created: '2026-05-22'
@@ -101,8 +103,6 @@ apis:
     url: https://docs.stoplight.io/docs/spectral/cb95cf0d26b83-core-functions
   - type: APIEvangelistRepository
     url: https://github.com/api-evangelist/spectral
-  - url: graphql/linting-graphql.md
-    type: GraphQL
   x-rules-format: spectral-yaml
   x-rules-engine: javascript
   x-integration-points:
@@ -281,7 +281,7 @@ apis:
   - Apicurio
   - AsyncAPI
   - Avro
-  - JSON-Schema
+  - JSON Schema
   - Kafka
   - OpenAPI
   - Protobuf
@@ -297,6 +297,7 @@ apis:
   - Protobuf
   - Red Hat
   - Schema Registry
+  - JSON-Schema
   properties:
   - type: Documentation
     url: https://www.apicur.io/registry/docs/apicurio-registry/3.0.x/index.html
@@ -486,13 +487,14 @@ apis:
   tags:
   - API Monitoring
   - API Metrics
-  - JSON-Schema
+  - JSON Schema
   - Runtime Validation
   tags_raw:
   - API Monitoring
   - APIMetrics
   - JSON Schema
   - Runtime Validation
+  - JSON-Schema
   properties:
   - type: Documentation
     url: https://apimetrics.io/docs/

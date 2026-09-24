@@ -1,1 +1,0 @@
-# API Linting GraphQL API
